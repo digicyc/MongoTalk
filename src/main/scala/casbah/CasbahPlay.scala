@@ -36,4 +36,14 @@ class CasbahPlay {
     val unicorns = (for (x <- coll.find(weightQuery)) yield x).toList
     unicorns.flatMap(_.getAs[String]("name"))
   }
+
+  /**
+   * Make sure vampire field exists.
+   */
+  def checkVampire = {
+    val vampCheck = "vampire" $exists true
+    
+    val unicorns = for (x <- coll.find(vampCheck)) yield x
+    unicorns.size
+  }
 }

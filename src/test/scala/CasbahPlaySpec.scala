@@ -22,4 +22,10 @@ class CasbahPlaySpec extends Specification {
       fatties must contain("Ayna")
     }
   }
+
+  "The vampires field" should {
+    "exist" in {
+      casbahPlay.checkVampire must be_>=(1)
+    }
+  }
 }

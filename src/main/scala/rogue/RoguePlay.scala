@@ -14,7 +14,7 @@ class RoguePlay {
     val unicorn =
       Unicorns where (_.name eqs name) get
 
-    (unicorn.get).weight.is
+    unicorn.get.weight.is
   }
 
   /**
@@ -24,7 +24,7 @@ class RoguePlay {
     val unicorn = 
       Unicorns where (_.name eqs name) get
 
-    (unicorn.get).loves.is
+    unicorn.get.loves.is
   }
 
   /**
