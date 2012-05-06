@@ -46,4 +46,25 @@ class CasbahPlay {
     val unicorns = for (x <- coll.find(vampCheck)) yield x
     unicorns.size
   }
+
+  /**
+   * Add a unicorn to our MongoDB
+   * TODO: Create a Unicorn Object to simplify parameter
+   */
+  def addUnicorn(name: String, dob: Date, loves: List[String], weight: Int, gender: String, vamps: Int) = {
+    newRec = MongoDBObject.newBuilder
+    newRec += "name" -> name
+    newRec += "dob" -> dob
+    newRec += "loves" -> loves
+    newRec += "weight" -> weight
+    newRec += "gender" -> gender
+    newRec += "vampires" -> vamps
+
+    val res = coll.find(newRec.result)
+    //  If this record doesn't exist add it.
+    if(res.length <= 0)
+      coll += newRec.result
+
+    nreRec.result
+  } 
 }
