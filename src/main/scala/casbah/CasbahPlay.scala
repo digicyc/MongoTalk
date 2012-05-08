@@ -3,12 +3,15 @@ package mongotalk.casbah
 import com.mongodb.casbah.Imports._
 
 
+case class Unicorn(name: String, dob: Date, loves: List[String], weight: Int, gender: String, vamps: Int)
+
 class CasbahPlay {
   private val mongoConn = MongoConnection() // Just localhost which is default.
   private val coll = mongoConn("mongotalk")("unicorns")
 
   /**
    * Just trying to prevent uneeded duplication/typing
+   * This is assuming there is only one unicorn named @name
    */
   private def getUnicorn(name: String) = 
     coll.findOne(MongoDBObject("name" -> name)).get
@@ -51,14 +54,14 @@ class CasbahPlay {
    * Add a unicorn to our MongoDB
    * TODO: Create a Unicorn Object to simplify parameter
    */
-  def addUnicorn(name: String, dob: Date, loves: List[String], weight: Int, gender: String, vamps: Int) = {
+  def addUnicorn(unicorn: Unicorn) = {
     newRec = MongoDBObject.newBuilder
-    newRec += "name" -> name
-    newRec += "dob" -> dob
-    newRec += "loves" -> loves
-    newRec += "weight" -> weight
-    newRec += "gender" -> gender
-    newRec += "vampires" -> vamps
+    newRec += "name" -> unicorn.name
+    newRec += "dob" -> unicorn.dob
+    newRec += "loves" -> unicorn.loves
+    newRec += "weight" -> unicorn.weight
+    newRec += "gender" -> unicorn.gender
+    newRec += "vampires" -> unicorn.vamps
 
     val res = coll.find(newRec.result)
     //  If this record doesn't exist add it.
